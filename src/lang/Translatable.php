@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace pocketmine\lang;
 
+use pocketmine\utils\TextFormat;
 use pocketmine\utils\Utils;
 
 final class Translatable{
@@ -34,7 +35,8 @@ final class Translatable{
 	 */
 	public function __construct(
 		protected string $text,
-		array $params = []
+		array $params = [],
+		private string $baseFormat = ""
 	){
 		foreach(Utils::promoteKeys($params) as $k => $param){
 			if(!($param instanceof Translatable)){
@@ -60,6 +62,8 @@ final class Translatable{
 		return $this->params[$i] ?? null;
 	}
 
+	public function getBaseFormat() : string{ return $this->baseFormat; }
+
 	public function format(string $before, string $after) : self{
 		return new self("$before%$this->text$after", $this->params);
 	}
@@ -70,5 +74,13 @@ final class Translatable{
 
 	public function postfix(string $postfix) : self{
 		return new self("%$this->text" . $postfix);
+	}
+
+	/**
+	 * Sets the base format to be applied to the translation result by {@link TextFormat::addBase()}.
+	 * Any existing base format is overwritten.
+	 */
+	public function baseTextFormat(string $baseFormat) : self{
+		return new self($this->text, $this->params, $baseFormat);
 	}
 }

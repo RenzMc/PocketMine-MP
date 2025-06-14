@@ -767,7 +767,7 @@ class NetworkSession{
 		$errorId = implode("-", str_split(bin2hex(random_bytes(6)), 4));
 
 		$this->disconnect(
-			reason: KnownTranslationFactory::pocketmine_disconnect_error($reason, $errorId)->prefix(TextFormat::RED),
+			reason: KnownTranslationFactory::pocketmine_disconnect_error($reason, $errorId)->baseTextFormat(TextFormat::RED),
 			disconnectScreenMessage: KnownTranslationFactory::pocketmine_disconnect_error($disconnectScreenMessage ?? $reason, $errorId),
 		);
 	}
@@ -1130,8 +1130,12 @@ class NetworkSession{
 	public function prepareClientTranslatableMessage(Translatable $message) : array{
 		//we can't send nested translations to the client, so make sure they are always pre-translated by the server
 		$language = $this->player->getLanguage();
-		$parameters = array_map(fn(string|Translatable $p) => $p instanceof Translatable ? $language->translate($p) : $p, $message->getParameters());
-		return [$language->translateString($message->getText(), $parameters, "pocketmine."), $parameters];
+		$baseFormat = $message->getBaseFormat();
+		$parameters = array_map(function(string|Translatable $p) use ($baseFormat, $language){
+			$string = $p instanceof Translatable ? $language->translate($p) : $p;
+			return $baseFormat !== "" ? TextFormat::addBase($baseFormat, $string) . TextFormat::RESET : $string;
+		}, $message->getParameters());
+		return [$language->translateString($message->getText(), $parameters, "pocketmine.", $baseFormat), $parameters];
 	}
 
 	public function onChatMessage(Translatable|string $message) : void{

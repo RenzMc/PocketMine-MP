@@ -114,7 +114,7 @@ class ParticleCommand extends VanillaCommand{
 		$particle = $this->getParticle($name, $data);
 
 		if($particle === null){
-			$sender->sendMessage(KnownTranslationFactory::commands_particle_notFound($name)->prefix(TextFormat::RED));
+			$sender->sendMessage(KnownTranslationFactory::commands_particle_notFound($name)->baseTextFormat(TextFormat::RED));
 			return true;
 		}
 

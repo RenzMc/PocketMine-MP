@@ -123,7 +123,7 @@ abstract class Command{
 		}
 
 		if($this->permissionMessage === null){
-			$target->sendMessage(KnownTranslationFactory::pocketmine_command_error_permission($this->name)->prefix(TextFormat::RED));
+			$target->sendMessage(KnownTranslationFactory::pocketmine_command_error_permission($this->name)->baseTextFormat(TextFormat::RED));
 		}elseif($this->permissionMessage !== ""){
 			$target->sendMessage(str_replace("<permission>", $permission ?? implode(";", $this->permission), $this->permissionMessage));
 		}
@@ -237,7 +237,7 @@ abstract class Command{
 	public static function broadcastCommandMessage(CommandSender $source, Translatable|string $message, bool $sendToSource = true) : void{
 		$users = $source->getServer()->getBroadcastChannelSubscribers(Server::BROADCAST_CHANNEL_ADMINISTRATIVE);
 		$result = KnownTranslationFactory::chat_type_admin($source->getName(), $message);
-		$colored = $result->prefix(TextFormat::GRAY . TextFormat::ITALIC);
+		$colored = $result->baseTextFormat(TextFormat::GRAY . TextFormat::ITALIC);
 
 		if($sendToSource){
 			$source->sendMessage($message);

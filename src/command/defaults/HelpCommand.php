@@ -105,22 +105,22 @@ class HelpCommand extends VanillaCommand{
 					$sender->sendMessage(KnownTranslationFactory::pocketmine_command_help_specificCommand_header($cmd->getLabel())
 						->format(TextFormat::YELLOW . "--------- " . TextFormat::RESET, TextFormat::YELLOW . " ---------"));
 					$sender->sendMessage(KnownTranslationFactory::pocketmine_command_help_specificCommand_description(TextFormat::RESET . $descriptionString)
-						->prefix(TextFormat::GOLD));
+						->baseTextFormat(TextFormat::GOLD));
 
 					$usage = $cmd->getUsage();
 					$usageString = $usage instanceof Translatable ? $lang->translate($usage) : $usage;
 					$sender->sendMessage(KnownTranslationFactory::pocketmine_command_help_specificCommand_usage(TextFormat::RESET . implode("\n" . TextFormat::RESET, explode("\n", $usageString, limit: PHP_INT_MAX)))
-						->prefix(TextFormat::GOLD));
+						->baseTextFormat(TextFormat::GOLD));
 
 					$aliases = $cmd->getAliases();
 					sort($aliases, SORT_NATURAL);
 					$sender->sendMessage(KnownTranslationFactory::pocketmine_command_help_specificCommand_aliases(TextFormat::RESET . implode(", ", $aliases))
-						->prefix(TextFormat::GOLD));
+						->baseTextFormat(TextFormat::GOLD));
 
 					return true;
 				}
 			}
-			$sender->sendMessage(KnownTranslationFactory::pocketmine_command_notFound($commandName, "/help")->prefix(TextFormat::RED));
+			$sender->sendMessage(KnownTranslationFactory::pocketmine_command_notFound($commandName, "/help")->baseTextFormat(TextFormat::RED));
 
 			return true;
 		}

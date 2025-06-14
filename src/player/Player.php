@@ -411,7 +411,7 @@ class Player extends Human implements CommandSender, ChunkListener, IPlayer{
 
 	public function getLeaveMessage() : Translatable|string{
 		if($this->spawned){
-			return KnownTranslationFactory::multiplayer_player_left($this->getDisplayName())->prefix(TextFormat::YELLOW);
+			return KnownTranslationFactory::multiplayer_player_left($this->getDisplayName())->baseTextFormat(TextFormat::YELLOW);
 		}
 
 		return "";
@@ -946,7 +946,7 @@ class Player extends Human implements CommandSender, ChunkListener, IPlayer{
 		});
 
 		$ev = new PlayerJoinEvent($this,
-			KnownTranslationFactory::multiplayer_player_joined($this->getDisplayName())->prefix(TextFormat::YELLOW)
+			KnownTranslationFactory::multiplayer_player_joined($this->getDisplayName())->baseTextFormat(TextFormat::YELLOW)
 		);
 		$ev->call();
 		if($ev->getJoinMessage() !== ""){

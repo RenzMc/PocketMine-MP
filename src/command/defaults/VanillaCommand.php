@@ -99,11 +99,11 @@ abstract class VanillaCommand extends Command{
 
 		$v = (int) $input;
 		if($v > $max){
-			$sender->sendMessage(KnownTranslationFactory::commands_generic_num_tooBig($input, (string) $max)->prefix(TextFormat::RED));
+			$sender->sendMessage(KnownTranslationFactory::commands_generic_num_tooBig($input, (string) $max)->baseTextFormat(TextFormat::RED));
 			return null;
 		}
 		if($v < $min){
-			$sender->sendMessage(KnownTranslationFactory::commands_generic_num_tooSmall($input, (string) $min)->prefix(TextFormat::RED));
+			$sender->sendMessage(KnownTranslationFactory::commands_generic_num_tooSmall($input, (string) $min)->baseTextFormat(TextFormat::RED));
 			return null;
 		}
 

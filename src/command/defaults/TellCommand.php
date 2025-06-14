@@ -60,9 +60,9 @@ class TellCommand extends VanillaCommand{
 
 		if($player instanceof Player){
 			$message = implode(" ", $args);
-			$sender->sendMessage(KnownTranslationFactory::commands_message_display_outgoing($player->getDisplayName(), $message)->prefix(TextFormat::GRAY . TextFormat::ITALIC));
+			$sender->sendMessage(KnownTranslationFactory::commands_message_display_outgoing($player->getDisplayName(), $message)->baseTextFormat(TextFormat::GRAY . TextFormat::ITALIC));
 			$name = $sender instanceof Player ? $sender->getDisplayName() : $sender->getName();
-			$player->sendMessage(KnownTranslationFactory::commands_message_display_incoming($name, $message)->prefix(TextFormat::GRAY . TextFormat::ITALIC));
+			$player->sendMessage(KnownTranslationFactory::commands_message_display_incoming($name, $message)->baseTextFormat(TextFormat::GRAY . TextFormat::ITALIC));
 			Command::broadcastCommandMessage($sender, KnownTranslationFactory::commands_message_display_outgoing($player->getDisplayName(), $message), false);
 		}else{
 			$sender->sendMessage(KnownTranslationFactory::commands_generic_player_notFound());

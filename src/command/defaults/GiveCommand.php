@@ -66,7 +66,7 @@ class GiveCommand extends VanillaCommand{
 		try{
 			$item = StringToItemParser::getInstance()->parse($args[1]) ?? LegacyStringToItemParser::getInstance()->parse($args[1]);
 		}catch(LegacyStringToItemParserException $e){
-			$sender->sendMessage(KnownTranslationFactory::commands_give_item_notFound($args[1])->prefix(TextFormat::RED));
+			$sender->sendMessage(KnownTranslationFactory::commands_give_item_notFound($args[1])->baseTextFormat(TextFormat::RED));
 			return true;
 		}
 
@@ -101,7 +101,7 @@ class GiveCommand extends VanillaCommand{
 		$player->getInventory()->addItem($item);
 
 		Command::broadcastCommandMessage($sender, KnownTranslationFactory::commands_give_success(
-			$item->getName() . " (" . $args[1] . ")",
+			$item->getName() . TextFormat::RESET . " (" . $args[1] . ")",
 			(string) $item->getCount(),
 			$player->getName()
 		));

@@ -107,7 +107,7 @@ class FormattedCommandAlias extends Command{
 					$timings->stopTiming();
 				}
 			}else{
-				$sender->sendMessage($sender->getLanguage()->translate(KnownTranslationFactory::pocketmine_command_notFound($commandLabel, "/help")->prefix(TextFormat::RED)));
+				$sender->sendMessage($sender->getLanguage()->translate(KnownTranslationFactory::pocketmine_command_notFound($commandLabel, "/help")->baseTextFormat(TextFormat::RED)));
 
 				//to match the behaviour of SimpleCommandMap::dispatch()
 				//this shouldn't normally happen, but might happen if the command was unregistered or modified after

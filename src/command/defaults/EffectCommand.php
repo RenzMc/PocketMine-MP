@@ -68,7 +68,7 @@ class EffectCommand extends VanillaCommand{
 
 		$effect = StringToEffectParser::getInstance()->parse($args[1]);
 		if($effect === null){
-			$sender->sendMessage(KnownTranslationFactory::commands_effect_notFound($args[1])->prefix(TextFormat::RED));
+			$sender->sendMessage(KnownTranslationFactory::commands_effect_notFound($args[1])->baseTextFormat(TextFormat::RED));
 			return true;
 		}
 

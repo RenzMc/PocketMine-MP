@@ -190,8 +190,10 @@ abstract class TextFormat{
 	 * - Base format "§c" (red) + "Hello" (no format) = "§r§cHello"
 	 * - Base format "§c" + "Hello §rWorld" = "§r§cHello §r§cWorld"
 	 *
-	 * Note: Adding base formatting to the output string a second time will result in a combination of formats from both
-	 * calls. This is not by design, but simply a consequence of the way the function is implemented.
+	 * Note: Adding base formatting to the output string a second time won't override conflicting formatting from the
+	 * earlier call (e.g. adding base format BLUE to a string which already has YELLOW base formatting will
+	 * still result in yellow text after any RESET code). However, complementary codes (e.g. italic, bold) will combine
+	 * with the existing codes (e.g. adding ITALIC to a string with base format YELLOW will give yellow & italic text).
 	 */
 	public static function addBase(string $baseFormat, string $string) : string{
 		$baseFormatParts = self::tokenize($baseFormat);

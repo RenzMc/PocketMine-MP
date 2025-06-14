@@ -69,7 +69,7 @@ class ClearCommand extends VanillaCommand{
 				}
 			}catch(LegacyStringToItemParserException $e){
 				//vanilla checks this at argument parsing layer, can't come up with a better alternative
-				$sender->sendMessage(KnownTranslationFactory::commands_give_item_notFound($args[1])->prefix(TextFormat::RED));
+				$sender->sendMessage(KnownTranslationFactory::commands_give_item_notFound($args[1])->baseTextFormat(TextFormat::RED));
 				return true;
 			}
 		}
@@ -90,7 +90,7 @@ class ClearCommand extends VanillaCommand{
 			if($count > 0){
 				$sender->sendMessage(KnownTranslationFactory::commands_clear_testing($target->getName(), (string) $count));
 			}else{
-				$sender->sendMessage(KnownTranslationFactory::commands_clear_failure_no_items($target->getName())->prefix(TextFormat::RED));
+				$sender->sendMessage(KnownTranslationFactory::commands_clear_failure_no_items($target->getName())->baseTextFormat(TextFormat::RED));
 			}
 
 			return true;
@@ -132,7 +132,7 @@ class ClearCommand extends VanillaCommand{
 		if($clearedCount > 0){
 			Command::broadcastCommandMessage($sender, KnownTranslationFactory::commands_clear_success($target->getName(), (string) $clearedCount));
 		}else{
-			$sender->sendMessage(KnownTranslationFactory::commands_clear_failure_no_items($target->getName())->prefix(TextFormat::RED));
+			$sender->sendMessage(KnownTranslationFactory::commands_clear_failure_no_items($target->getName())->baseTextFormat(TextFormat::RED));
 		}
 
 		return true;
